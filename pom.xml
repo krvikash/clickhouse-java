@@ -111,6 +111,7 @@
 
         <antrun-plugin.version>3.1.0</antrun-plugin.version>
         <assembly-plugin.version>3.6.0</assembly-plugin.version>
+        <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
         <clean-plugin.version>3.5.0</clean-plugin.version>
         <compiler-plugin.version>3.14.0</compiler-plugin.version>
         <deploy-plugin.version>3.1.1</deploy-plugin.version>
@@ -601,6 +602,35 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.43.0</version>
+                <configuration>
+                    <java>
+                        <removeUnusedImports />
+                        <lineEndings>PLATFORM_NATIVE</lineEndings>
+                    </java>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <failOnViolation>true</failOnViolation>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
